@@ -1,0 +1,32 @@
+name: ground_z
+description: Gamebook in a mobile app format with music and images.
+
+publish_to: "none"
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter_icons:
+  android: "launcher_icon"
+  image_path: "lib/assets/Logo_slang_squarefondo.png"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+
+  fonts:
+    - family: Aldrich
+      fonts:
+        - asset: assets/aldrich.ttf

@@ -1,15 +1,16 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ground_z/constants.dart';
-import 'package:ground_z/widgets.dart';
+import 'package:ground_z/book_page.dart';
+import 'package:ground_z/visualize_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() async {
-  runApp(const MyApp());
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-}
+var prefs;
+Map<String, BookPage> pageList = {};
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class GroundZ extends StatelessWidget {
+  const GroundZ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,85 +25,50 @@ class MyApp extends StatelessWidget {
             .apply(fontFamily: 'aldrich', fontSizeFactor: 1.2),
       ),
       debugShowCheckedModeBanner: false,
-      home: const BookPage(title: 'G R O U N D_ZERO'),
+      home: VisualizePage(
+        //SharedPrefs
+        title: 'Volver a empezar',
+        pageList: pageList,
+      ),
     );
   }
 }
 
-class BookPage extends StatefulWidget {
-  const BookPage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<BookPage> createState() => _BookPageState();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
+  await readProcessBook();
+  runApp(const GroundZ());
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
-class _BookPageState extends State<BookPage> {
-  bool buttonsVisible = false;
-  var scrollController = ScrollController();
-
-  @override
-  Widget build(BuildContext context) {
-    final dimension = MediaQuery.of(context).size;
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-        Future.delayed(const Duration(seconds: 1), () {
-          setState(() {
-            buttonsVisible = true;
-            Future.delayed(const Duration(milliseconds: 300), () {
-              scrollController.animateTo(
-                scrollController.position.maxScrollExtent,
-                duration: const Duration(seconds: 1),
-                curve: Curves.fastOutSlowIn,
-              );
-            });
-          });
-        });
+Future<void> readProcessBook() async {
+  var text = await rootBundle.loadString('assets/Ground_Z.txt');
+  var book = text.split('\n#');
+  book = List<String>.generate(book.length, (i) => book[i].replaceAll('#', ''));
+  int counter = 0;
+  List<String> div = [];
+  for (String string in book) {
+    ++counter;
+    if (counter % 2 != 0) {
+      div = string.split("|");
+    } else {
+      String text = string;
+      BookPage page;
+      if (div.length > 2) {
+        page = BookPage(
+            title: div[0],
+            text: text,
+            btn1Text: div[1],
+            btn2Text: div[2],
+            twoButtons: true);
+      } else {
+        //Para probar errores al modificar el libro: print(div[0]);
+        page = BookPage.oneButton(
+            title: div[0], text: text, btn1Text: div[1], twoButtons: false);
       }
-    });
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            widget.title,
-          ),
-        ),
-        backgroundColor: brownOxide,
-      ),
-      body: Container(
-        color: Colors.black,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                controller: scrollController,
-                child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: dimension.width * 0.04,
-                        vertical: dimension.height * 0.015),
-                    child: const Text(
-                      test,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(color: Colors.white),
-                    )),
-              ),
-            ),
-            Visibility(
-              visible: buttonsVisible,
-              child: Column(
-                children: [
-                  customButton(text: 'Opción 1', width: dimension.width * 0.96),
-                  customButton(text: 'Opción 2', width: dimension.width * 0.96),
-                  SizedBox(height: dimension.height * 0.018)
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+      pageList.putIfAbsent(div[0], () => page);
+    }
   }
+  if (prefs.getBool('second') != true) {}
 }

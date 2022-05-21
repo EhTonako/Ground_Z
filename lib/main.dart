@@ -22,7 +22,7 @@ class GroundZ extends StatelessWidget {
       theme: ThemeData(
         textTheme: Theme.of(context)
             .textTheme
-            .apply(fontFamily: 'aldrich', fontSizeFactor: 1.2),
+            .apply(fontFamily: 'Cuomotype-Regular', fontSizeFactor: 1.5),
       ),
       debugShowCheckedModeBanner: false,
       home: VisualizePage(
@@ -44,6 +44,7 @@ void main() async {
 
 Future<void> readProcessBook() async {
   var text = await rootBundle.loadString('assets/Ground_Z.txt');
+  text = text.replaceAll('Empezar', 'Volver a empezar');
   var book = text.split('\n#');
   book = List<String>.generate(book.length, (i) => book[i].replaceAll('#', ''));
   int counter = 0;

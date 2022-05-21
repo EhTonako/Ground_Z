@@ -27,6 +27,6 @@ flutter:
     - assets/
 
   fonts:
-    - family: Aldrich
+    - family: Cuomotype-Regular
       fonts:
-        - asset: assets/aldrich.ttf
+        - asset: assets/cuomotype.ttf

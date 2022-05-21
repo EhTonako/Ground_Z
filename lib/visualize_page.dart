@@ -1,9 +1,12 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:ground_z/book_page.dart';
 import 'package:ground_z/constants.dart';
 import 'package:ground_z/widgets.dart';
+
+var pageList;
+var title;
 
 class VisualizePage extends StatefulWidget {
   const VisualizePage({Key? key, required this.pageList, required this.title})
@@ -16,20 +19,31 @@ class VisualizePage extends StatefulWidget {
 }
 
 class _VisualizePageState extends State<VisualizePage> {
-  BookPage? currentPage;
   bool buttonsVisible = false;
   var scrollController = ScrollController();
 
   @override
   void initState() {
-    //Sacarlo de prefs si no es la primera vez que se juega
-    currentPage = widget.pageList[widget.title];
+    pageList = widget.pageList;
+    title = widget.title;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final dimension = MediaQuery.of(context).size;
+    BookPage currentPage = pageList[title]!;
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (scrollController.position.maxScrollExtent == 0.0) {
+        Future.delayed(const Duration(seconds: 8), () {
+          setState(() {
+            buttonsVisible = true;
+          });
+        });
+      }
+    });
+
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
@@ -47,13 +61,16 @@ class _VisualizePageState extends State<VisualizePage> {
         });
       }
     });
+
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'G R O U N D_ZERO',
+        title: Center(
+            child: Transform.scale(
+          scaleX: 1.15,
+          child: const Text(
+            'GROUND_ZERO',
           ),
-        ),
+        )),
         backgroundColor: brownOxide,
       ),
       body: Container(
@@ -70,7 +87,7 @@ class _VisualizePageState extends State<VisualizePage> {
                         horizontal: dimension.width * 0.04,
                         vertical: dimension.height * 0.015),
                     child: Text(
-                      currentPage!.text,
+                      currentPage.text,
                       textAlign: TextAlign.justify,
                       style: const TextStyle(color: Colors.white),
                     )),
@@ -81,11 +98,20 @@ class _VisualizePageState extends State<VisualizePage> {
               child: Column(
                 children: [
                   customButton(
-                      text: currentPage!.btn1Text,
-                      width: dimension.width * 0.96),
-                  customButton(
-                      text: currentPage!.btn2Text,
-                      width: dimension.width * 0.96),
+                      text: currentPage.btn1Text,
+                      width: dimension.width * 0.96,
+                      onPressed: () => fixMysteriousLength(
+                          currentPage.btn1Text, currentPage)),
+                  SizedBox(height: dimension.height * 0.018),
+                  currentPage.btn2Text == ''
+                      ? const SizedBox()
+                      : customButton(
+                          text: currentPage.btn2Text,
+                          width: dimension.width * 0.96,
+                          onPressed: () {
+                            fixMysteriousLength(
+                                currentPage.btn2Text, currentPage);
+                          }),
                   SizedBox(height: dimension.height * 0.018)
                 ],
               ),
@@ -94,5 +120,15 @@ class _VisualizePageState extends State<VisualizePage> {
         ),
       ),
     );
+  }
+
+  void fixMysteriousLength(String btnTxt, BookPage currentPage) {
+    setState(() {
+      if (pageList[btnTxt] == null) {
+        title = btnTxt.substring(0, btnTxt.length - 3);
+      } else {
+        title = btnTxt;
+      }
+    });
   }
 }

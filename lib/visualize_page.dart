@@ -19,8 +19,9 @@ class VisualizePage extends StatefulWidget {
 }
 
 class _VisualizePageState extends State<VisualizePage> {
-  bool buttonsVisible = false;
   var scrollController = ScrollController();
+  var illustration;
+  bool buttonsVisible = false;
 
   @override
   void initState() {
@@ -35,29 +36,27 @@ class _VisualizePageState extends State<VisualizePage> {
     BookPage currentPage = pageList[title]!;
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (scrollController.position.maxScrollExtent == 0.0) {
-        Future.delayed(const Duration(seconds: 8), () {
-          setState(() {
+      Future.delayed(const Duration(seconds: 5), () {
+        setState(() {
+          if (scrollController.position.maxScrollExtent == 0.0) {
             buttonsVisible = true;
-          });
+          }
         });
-      }
+      });
     });
 
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        Future.delayed(const Duration(seconds: 1), () {
-          setState(() {
-            buttonsVisible = true;
-            Future.delayed(const Duration(milliseconds: 300), () {
-              scrollController.animateTo(
-                scrollController.position.maxScrollExtent,
-                duration: const Duration(seconds: 1),
-                curve: Curves.fastOutSlowIn,
-              );
-            });
-          });
+        setState(() {
+          buttonsVisible = true;
+        });
+        Future.delayed(const Duration(milliseconds: 200), () {
+          scrollController.animateTo(
+            scrollController.position.maxScrollExtent,
+            duration: const Duration(seconds: 1),
+            curve: Curves.fastOutSlowIn,
+          );
         });
       }
     });
@@ -80,26 +79,33 @@ class _VisualizePageState extends State<VisualizePage> {
           children: <Widget>[
             Expanded(
               child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                controller: scrollController,
-                child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: dimension.width * 0.04,
-                        vertical: dimension.height * 0.015),
-                    child: Text(
-                      currentPage.text,
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(color: Colors.white),
-                    )),
-              ),
+                  scrollDirection: Axis.vertical,
+                  controller: scrollController,
+                  child: Column(
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(
+                              right: dimension.width * 0.04,
+                              left: dimension.width * 0.04,
+                              top: dimension.height * 0.015),
+                          child: Text(
+                            currentPage.text,
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(color: Colors.white),
+                          )),
+                      currentPage.illustration
+                    ],
+                  )),
             ),
             Visibility(
               visible: buttonsVisible,
               child: Column(
                 children: [
+                  SizedBox(height: dimension.height * 0.018),
                   customButton(
                       text: currentPage.btn1Text,
                       width: dimension.width * 0.96,
+                      height: currentPage.btn2Text.isEmpty ? 1.75 : 1,
                       onPressed: () => fixMysteriousLength(
                           currentPage.btn1Text, currentPage)),
                   SizedBox(height: dimension.height * 0.018),
@@ -108,6 +114,7 @@ class _VisualizePageState extends State<VisualizePage> {
                       : customButton(
                           text: currentPage.btn2Text,
                           width: dimension.width * 0.96,
+                          height: 1.75,
                           onPressed: () {
                             fixMysteriousLength(
                                 currentPage.btn2Text, currentPage);
@@ -123,12 +130,14 @@ class _VisualizePageState extends State<VisualizePage> {
   }
 
   void fixMysteriousLength(String btnTxt, BookPage currentPage) {
+    scrollController.jumpTo(0);
     setState(() {
+      buttonsVisible = false;
       if (pageList[btnTxt] == null) {
         title = btnTxt.substring(0, btnTxt.length - 3);
-      } else {
-        title = btnTxt;
+        return;
       }
+      title = btnTxt;
     });
   }
 }

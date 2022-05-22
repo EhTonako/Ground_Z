@@ -45,6 +45,7 @@ void main() async {
 Future<void> readProcessBook() async {
   var text = await rootBundle.loadString('assets/Ground_Z.txt');
   text = text.replaceAll('Empezar', 'Volver a empezar');
+  text = text.replaceAll('8:32', '8-32');
   var book = text.split('\n#');
   book = List<String>.generate(book.length, (i) => book[i].replaceAll('#', ''));
   int counter = 0;
@@ -58,15 +59,14 @@ Future<void> readProcessBook() async {
       BookPage page;
       if (div.length > 2) {
         page = BookPage(
-            title: div[0],
-            text: text,
-            btn1Text: div[1],
-            btn2Text: div[2],
-            twoButtons: true);
+          title: div[0],
+          text: text,
+          btn1Text: div[1],
+          btn2Text: div[2],
+        );
       } else {
         //Para probar errores al modificar el libro: print(div[0]);
-        page = BookPage.oneButton(
-            title: div[0], text: text, btn1Text: div[1], twoButtons: false);
+        page = BookPage.oneButton(title: div[0], text: text, btn1Text: div[1]);
       }
       pageList.putIfAbsent(div[0], () => page);
     }

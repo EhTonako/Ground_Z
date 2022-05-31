@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ground_z/constants.dart';
 
 TextButton customButton(
-    {required String text,
-    required double width,
-    required double height,
-    Function()? onPressed}) {
+    {required String text, required double width, required double height, Function()? onPressed}) {
   return TextButton(
     style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
@@ -24,14 +21,15 @@ TextButton customButton(
   );
 }
 
+//Para desarrollar animaciones más tarde
+
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
   @override
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget>
-    with SingleTickerProviderStateMixin {
+class _MyStatefulWidgetState extends State<MyStatefulWidget> with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,

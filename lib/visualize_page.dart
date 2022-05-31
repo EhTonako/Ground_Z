@@ -1,16 +1,18 @@
 // ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ground_z/book_page.dart';
 import 'package:ground_z/constants.dart';
+import 'package:ground_z/game_map.dart';
+import 'package:ground_z/navigation.dart';
 import 'package:ground_z/widgets.dart';
 
 var pageList;
 var title;
 
 class VisualizePage extends StatefulWidget {
-  const VisualizePage({Key? key, required this.pageList, required this.title})
-      : super(key: key);
+  const VisualizePage({Key? key, required this.pageList, required this.title}) : super(key: key);
   final String title;
   final Map<String, BookPage> pageList;
 
@@ -27,16 +29,25 @@ class _VisualizePageState extends State<VisualizePage> {
   void initState() {
     pageList = widget.pageList;
     title = widget.title;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final dimension = MediaQuery.of(context).size;
-    BookPage currentPage = pageList[title]!;
-
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 5), () {
+      Future.delayed(const Duration(seconds: 7), () {
+        scrollController.addListener(() {
+          if (scrollController.position.pixels == scrollController.position.maxScrollExtent &&
+              buttonsVisible != true) {
+            Future.delayed(const Duration(milliseconds: 500), () {
+              setState(() {
+                buttonsVisible = true;
+              });
+              Future.delayed(const Duration(milliseconds: 100), () {
+                scrollController.animateTo(
+                  scrollController.position.maxScrollExtent,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.fastOutSlowIn,
+                );
+              });
+            });
+          }
+        });
         setState(() {
           if (scrollController.position.maxScrollExtent == 0.0) {
             buttonsVisible = true;
@@ -45,31 +56,43 @@ class _VisualizePageState extends State<VisualizePage> {
       });
     });
 
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-        setState(() {
-          buttonsVisible = true;
-        });
-        Future.delayed(const Duration(milliseconds: 200), () {
-          scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: const Duration(seconds: 1),
-            curve: Curves.fastOutSlowIn,
-          );
-        });
-      }
-    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final dimension = MediaQuery.of(context).size;
+    BookPage currentPage = pageList[title]!;
 
     return Scaffold(
       appBar: AppBar(
         title: Center(
-            child: Transform.scale(
-          scaleX: 1.15,
-          child: const Text(
-            'GROUND_ZERO',
+          child: Row(
+            children: [
+              const Spacer(),
+              Transform.scale(
+                scaleX: 1.15,
+                child: const Text(
+                  'GROUND_ZERO',
+                ),
+              ),
+              const Spacer(),
+              InkWell(
+                child: Transform.scale(
+                  scale: 0.6,
+                  child: SvgPicture.asset('assets/map.svg'),
+                ),
+                onTap: () {
+                  AppNavigator.to(
+                      context: context,
+                      widget: const GameMap(),
+                      type: NavigationType.push,
+                      transition: NavigationTransition.slide);
+                },
+              ),
+            ],
           ),
-        )),
+        ),
         backgroundColor: brownOxide,
       ),
       body: Container(
@@ -106,8 +129,7 @@ class _VisualizePageState extends State<VisualizePage> {
                       text: currentPage.btn1Text,
                       width: dimension.width * 0.96,
                       height: currentPage.btn2Text.isEmpty ? 1.75 : 1,
-                      onPressed: () => fixMysteriousLength(
-                          currentPage.btn1Text, currentPage)),
+                      onPressed: () => fixMysteriousLength(currentPage.btn1Text, currentPage)),
                   SizedBox(height: dimension.height * 0.018),
                   currentPage.btn2Text == ''
                       ? const SizedBox()
@@ -116,8 +138,7 @@ class _VisualizePageState extends State<VisualizePage> {
                           width: dimension.width * 0.96,
                           height: 1.75,
                           onPressed: () {
-                            fixMysteriousLength(
-                                currentPage.btn2Text, currentPage);
+                            fixMysteriousLength(currentPage.btn2Text, currentPage);
                           }),
                   SizedBox(height: dimension.height * 0.018)
                 ],
@@ -132,6 +153,15 @@ class _VisualizePageState extends State<VisualizePage> {
   void fixMysteriousLength(String btnTxt, BookPage currentPage) {
     scrollController.jumpTo(0);
     setState(() {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        Future.delayed(const Duration(seconds: 5), () {
+          setState(() {
+            if (scrollController.position.maxScrollExtent == 0.0) {
+              buttonsVisible = true;
+            }
+          });
+        });
+      });
       buttonsVisible = false;
       if (pageList[btnTxt] == null) {
         title = btnTxt.substring(0, btnTxt.length - 3);

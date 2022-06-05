@@ -7,8 +7,8 @@ import 'package:ground_z/book_page.dart';
 import 'package:ground_z/visualize_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-var prefs;
-var fontSizeFactor = 1.5;
+SharedPreferences? prefs;
+var fontSizeFactor;
 Map<String, BookPage> pageList = {};
 
 class GroundZ extends StatelessWidget {
@@ -29,8 +29,7 @@ class GroundZ extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         home: VisualizePage(
-          //SharedPrefs
-          title: 'Volver a empezar',
+          title: prefs!.getString('currentPage') ?? 'Volver a empezar',
           pageList: pageList,
         ),
       );
@@ -41,6 +40,7 @@ class GroundZ extends StatelessWidget {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
+  fontSizeFactor = prefs!.getDouble('fontSizeFactor') ?? 1.5;
   await readProcessBook();
   runApp(const GroundZ());
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -75,5 +75,4 @@ Future<void> readProcessBook() async {
       pageList.putIfAbsent(div[0], () => page);
     }
   }
-  if (prefs.getBool('second') != true) {}
 }

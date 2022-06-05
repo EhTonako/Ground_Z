@@ -9,9 +9,11 @@ import 'package:ground_z/game_map.dart';
 import 'package:ground_z/main.dart';
 import 'package:ground_z/navigation.dart';
 import 'package:ground_z/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var pageList;
 var title;
+bool whiteBackground = false;
 
 class VisualizePage extends StatefulWidget {
   const VisualizePage({Key? key, required this.pageList, required this.title}) : super(key: key);
@@ -23,11 +25,11 @@ class VisualizePage extends StatefulWidget {
 }
 
 class _VisualizePageState extends State<VisualizePage> {
-  double _value = 1.5;
+  double _value = prefs!.getDouble('fontSizeFactor') ?? 1.5;
   var scrollController = ScrollController();
   var illustration;
   bool buttonsVisible = false;
-  var fontColor = Colors.white;
+  var fontColor = const Color(0xffF7F4EC);
   var backgroundColor = Colors.black;
   bool settingsInvisible = true;
 
@@ -35,40 +37,25 @@ class _VisualizePageState extends State<VisualizePage> {
   void initState() {
     pageList = widget.pageList;
     title = widget.title;
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 7), () {
-        scrollController.addListener(() {
-          if (scrollController.position.pixels == scrollController.position.maxScrollExtent &&
-              buttonsVisible != true) {
-            Future.delayed(const Duration(milliseconds: 500), () {
-              setState(() {
-                buttonsVisible = true;
-              });
-              Future.delayed(const Duration(milliseconds: 100), () {
-                scrollController.animateTo(
-                  scrollController.position.maxScrollExtent,
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.fastOutSlowIn,
-                );
-              });
-            });
-          }
-        });
-        setState(() {
-          if (scrollController.position.maxScrollExtent == 0.0) {
-            buttonsVisible = true;
-          }
-        });
-      });
-    });
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final dimension = MediaQuery.of(context).size;
+    if (pageList[title] == null) {
+      title = title.substring(0, title.length - 3);
+    }
     BookPage currentPage = pageList[title]!;
+
+    bool whiteBackground = prefs!.getBool('whiteBackground') ?? false;
+    if (whiteBackground) {
+      backgroundColor = const Color(0xffF7F4EC);
+      fontColor = Colors.black;
+    } else {
+      backgroundColor = Colors.black;
+      fontColor = const Color(0xffF7F4EC);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -111,8 +98,11 @@ class _VisualizePageState extends State<VisualizePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Slider(
+                      onChangeEnd: (value) {
+                        prefs!.setDouble('fontSizeFactor', value);
+                      },
                       thumbColor: darkGrey,
-                      activeColor: Colors.white,
+                      activeColor: const Color(0xffF7F4EC),
                       min: 1.2,
                       max: 1.6,
                       value: _value,
@@ -132,9 +122,15 @@ class _VisualizePageState extends State<VisualizePage> {
                               height: 4.5 * (dimension.height * 0.01)),
                       onTap: () {
                         setState(() {
-                          backgroundColor =
-                              backgroundColor == Colors.black ? Colors.white : Colors.black;
-                          fontColor = backgroundColor == Colors.black ? Colors.white : Colors.black;
+                          whiteBackground = !whiteBackground;
+                          SharedPreferences.getInstance()
+                              .then((value) => value.setBool('whiteBackground', whiteBackground));
+                          backgroundColor = backgroundColor == Colors.black
+                              ? const Color(0xffF7F4EC)
+                              : Colors.black;
+                          fontColor = backgroundColor == Colors.black
+                              ? const Color(0xffF7F4EC)
+                              : Colors.black;
                         });
                       },
                     )
@@ -164,7 +160,14 @@ class _VisualizePageState extends State<VisualizePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Expanded(
-              child: SingleChildScrollView(
+              child: NotificationListener<ScrollNotification>(
+                onNotification: (notification) {
+                  setState(() {
+                    settingsInvisible = true;
+                  });
+                  return true;
+                },
+                child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   controller: scrollController,
                   child: Column(
@@ -183,36 +186,40 @@ class _VisualizePageState extends State<VisualizePage> {
                                     ? FontWeight.normal
                                     : FontWeight.bold),
                           )),
-                      currentPage.illustration
+                      currentPage.illustration,
+                      Column(
+                        children: [
+                          SizedBox(height: dimension.height * 0.018),
+                          customButton(
+                              text: currentPage.btn1Text,
+                              width: dimension.width * 0.96,
+                              height: currentPage.btn2Text.isEmpty ? 1.75 : 1,
+                              changeColor: backgroundColor == const Color(0xffF7F4EC)
+                                  ? Colors.black
+                                  : darkGrey,
+                              onPressed: () =>
+                                  fixMysteriousLength(currentPage.btn1Text, currentPage)),
+                          SizedBox(height: dimension.height * 0.018),
+                          currentPage.btn2Text == ''
+                              ? const SizedBox()
+                              : customButton(
+                                  text: currentPage.btn2Text,
+                                  width: dimension.width * 0.96,
+                                  height: 1.75,
+                                  changeColor: backgroundColor == const Color(0xffF7F4EC)
+                                      ? Colors.black
+                                      : darkGrey,
+                                  onPressed: () {
+                                    fixMysteriousLength(currentPage.btn2Text, currentPage);
+                                  }),
+                          SizedBox(height: dimension.height * 0.018)
+                        ],
+                      ),
                     ],
-                  )),
-            ),
-            Visibility(
-              visible: buttonsVisible,
-              child: Column(
-                children: [
-                  SizedBox(height: dimension.height * 0.018),
-                  customButton(
-                      text: currentPage.btn1Text,
-                      width: dimension.width * 0.96,
-                      height: currentPage.btn2Text.isEmpty ? 1.75 : 1,
-                      changeColor: backgroundColor == Colors.white ? Colors.black : darkGrey,
-                      onPressed: () => fixMysteriousLength(currentPage.btn1Text, currentPage)),
-                  SizedBox(height: dimension.height * 0.018),
-                  currentPage.btn2Text == ''
-                      ? const SizedBox()
-                      : customButton(
-                          text: currentPage.btn2Text,
-                          width: dimension.width * 0.96,
-                          height: 1.75,
-                          changeColor: backgroundColor == Colors.white ? Colors.black : darkGrey,
-                          onPressed: () {
-                            fixMysteriousLength(currentPage.btn2Text, currentPage);
-                          }),
-                  SizedBox(height: dimension.height * 0.018)
-                ],
+                  ),
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -221,21 +228,8 @@ class _VisualizePageState extends State<VisualizePage> {
 
   void fixMysteriousLength(String btnTxt, BookPage currentPage) {
     scrollController.jumpTo(0);
+    SharedPreferences.getInstance().then((value) => value.setString('currentPage', btnTxt));
     setState(() {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
-        Future.delayed(const Duration(seconds: 5), () {
-          setState(() {
-            if (scrollController.position.maxScrollExtent == 0.0) {
-              buttonsVisible = true;
-            }
-          });
-        });
-      });
-      buttonsVisible = false;
-      if (pageList[btnTxt] == null) {
-        title = btnTxt.substring(0, btnTxt.length - 3);
-        return;
-      }
       title = btnTxt;
     });
   }

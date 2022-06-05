@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ground_z/app_builder.dart';
 import 'package:ground_z/book_page.dart';
 import 'package:ground_z/constants.dart';
 import 'package:ground_z/game_map.dart';
+import 'package:ground_z/main.dart';
 import 'package:ground_z/navigation.dart';
 import 'package:ground_z/widgets.dart';
 
@@ -21,9 +23,13 @@ class VisualizePage extends StatefulWidget {
 }
 
 class _VisualizePageState extends State<VisualizePage> {
+  double _value = 1.5;
   var scrollController = ScrollController();
   var illustration;
   bool buttonsVisible = false;
+  var fontColor = Colors.white;
+  var backgroundColor = Colors.black;
+  bool settingsInvisible = true;
 
   @override
   void initState() {
@@ -68,26 +74,83 @@ class _VisualizePageState extends State<VisualizePage> {
       appBar: AppBar(
         title: Center(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Spacer(),
-              Transform.scale(
-                scaleX: 1.15,
-                child: const Text(
-                  'GROUND_ZERO',
+              Visibility(
+                  visible: settingsInvisible,
+                  child: Row(
+                    children: [
+                      SizedBox(width: dimension.width * 0.02),
+                      Transform.scale(
+                        scaleX: 1.15,
+                        child: Text('GROUND_ZERO',
+                            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                color: backgroundColor, fontWeight: FontWeight.bold, fontSize: 28)),
+                      ),
+                      SizedBox(width: dimension.width * 0.09),
+                      InkWell(
+                        child: backgroundColor == Colors.black
+                            ? SvgPicture.asset('assets/map_white.svg',
+                                height: 5 * (dimension.height * 0.01))
+                            : SvgPicture.asset('assets/map.svg',
+                                height: 5 * (dimension.height * 0.01)),
+                        onTap: () {
+                          AppNavigator.to(
+                              context: context,
+                              widget: const GameMap(),
+                              type: NavigationType.push,
+                              transition: NavigationTransition.slide);
+                        },
+                      ),
+                      SizedBox(width: dimension.width * 0.02),
+                    ],
+                  )),
+              Visibility(
+                visible: !settingsInvisible,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Slider(
+                      thumbColor: darkGrey,
+                      activeColor: Colors.white,
+                      min: 1.2,
+                      max: 1.6,
+                      value: _value,
+                      onChanged: (value) {
+                        setState(() {
+                          _value = value;
+                          fontSizeFactor = value;
+                          AppBuilder.of(context).rebuild();
+                        });
+                      },
+                    ),
+                    InkWell(
+                      child: backgroundColor == Colors.black
+                          ? SvgPicture.asset('assets/light_on.svg',
+                              height: 4.5 * (dimension.height * 0.01))
+                          : SvgPicture.asset('assets/light_off.svg',
+                              height: 4.5 * (dimension.height * 0.01)),
+                      onTap: () {
+                        setState(() {
+                          backgroundColor =
+                              backgroundColor == Colors.black ? Colors.white : Colors.black;
+                          fontColor = backgroundColor == Colors.black ? Colors.white : Colors.black;
+                        });
+                      },
+                    )
+                  ],
                 ),
               ),
-              const Spacer(),
               InkWell(
-                child: Transform.scale(
-                  scale: 0.6,
-                  child: SvgPicture.asset('assets/map.svg'),
-                ),
+                child: backgroundColor == Colors.black
+                    ? SvgPicture.asset('assets/settings_white.svg',
+                        height: 5 * (dimension.height * 0.01))
+                    : SvgPicture.asset('assets/settings.svg',
+                        height: 5 * (dimension.height * 0.01)),
                 onTap: () {
-                  AppNavigator.to(
-                      context: context,
-                      widget: const GameMap(),
-                      type: NavigationType.push,
-                      transition: NavigationTransition.slide);
+                  setState(() {
+                    settingsInvisible = !settingsInvisible;
+                  });
                 },
               ),
             ],
@@ -96,7 +159,7 @@ class _VisualizePageState extends State<VisualizePage> {
         backgroundColor: brownOxide,
       ),
       body: Container(
-        color: Colors.black,
+        color: backgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -114,7 +177,11 @@ class _VisualizePageState extends State<VisualizePage> {
                           child: Text(
                             currentPage.text,
                             textAlign: TextAlign.justify,
-                            style: const TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: fontColor,
+                                fontWeight: backgroundColor == Colors.black
+                                    ? FontWeight.normal
+                                    : FontWeight.bold),
                           )),
                       currentPage.illustration
                     ],
@@ -129,6 +196,7 @@ class _VisualizePageState extends State<VisualizePage> {
                       text: currentPage.btn1Text,
                       width: dimension.width * 0.96,
                       height: currentPage.btn2Text.isEmpty ? 1.75 : 1,
+                      changeColor: backgroundColor == Colors.white ? Colors.black : darkGrey,
                       onPressed: () => fixMysteriousLength(currentPage.btn1Text, currentPage)),
                   SizedBox(height: dimension.height * 0.018),
                   currentPage.btn2Text == ''
@@ -137,6 +205,7 @@ class _VisualizePageState extends State<VisualizePage> {
                           text: currentPage.btn2Text,
                           width: dimension.width * 0.96,
                           height: 1.75,
+                          changeColor: backgroundColor == Colors.white ? Colors.black : darkGrey,
                           onPressed: () {
                             fixMysteriousLength(currentPage.btn2Text, currentPage);
                           }),

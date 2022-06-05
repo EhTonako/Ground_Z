@@ -17,7 +17,6 @@ class AppNavigator {
       required NavigationType type,
       required NavigationTransition transition,
       double slideOffSet = 1.0}) {
-    //==================================================
     late Route route;
     if (lastRoute == widget.toString()) {
       type = NavigationType.pushReplacement;
@@ -26,7 +25,6 @@ class AppNavigator {
     }
 
     switch (transition) {
-      // MATERIAL
       case NavigationTransition.material:
         route = MaterialPageRoute(
           builder: (context) => WillPopScope(onWillPop: onWillPop, child: widget),
@@ -42,7 +40,6 @@ class AppNavigator {
         );
         break;
 
-      // SLIDE
       case NavigationTransition.slide:
         route = PageRouteBuilder(
             pageBuilder: (c, a1, a2) => WillPopScope(onWillPop: onWillPop, child: widget),
@@ -57,7 +54,6 @@ class AppNavigator {
         break;
     }
 
-    // >> NAVIGATION
     if (type == NavigationType.push) {
       Navigator.push(context, route);
     } else if (type == NavigationType.pushReplacement) {

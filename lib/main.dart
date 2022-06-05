@@ -2,11 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ground_z/app_builder.dart';
 import 'package:ground_z/book_page.dart';
 import 'package:ground_z/visualize_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var prefs;
+var fontSizeFactor = 1.5;
 Map<String, BookPage> pageList = {};
 
 class GroundZ extends StatelessWidget {
@@ -18,19 +20,21 @@ class GroundZ extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-      theme: ThemeData(
-        textTheme: Theme.of(context)
-            .textTheme
-            .apply(fontFamily: 'Cuomotype-Regular', fontSizeFactor: 1.5),
-      ),
-      debugShowCheckedModeBanner: false,
-      home: VisualizePage(
-        //SharedPrefs
-        title: 'Volver a empezar',
-        pageList: pageList,
-      ),
-    );
+    return AppBuilder(builder: (BuildContext context) {
+      return MaterialApp(
+        theme: ThemeData(
+          textTheme: Theme.of(context)
+              .textTheme
+              .apply(fontFamily: 'Cuomotype-Regular', fontSizeFactor: fontSizeFactor),
+        ),
+        debugShowCheckedModeBanner: false,
+        home: VisualizePage(
+          //SharedPrefs
+          title: 'Volver a empezar',
+          pageList: pageList,
+        ),
+      );
+    });
   }
 }
 

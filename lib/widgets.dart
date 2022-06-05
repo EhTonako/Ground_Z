@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:ground_z/constants.dart';
 
-TextButton customButton(
-    {required String text, required double width, required double height, Function()? onPressed}) {
+TextButton customButton({
+  required String text,
+  required double width,
+  required double height,
+  required Color changeColor,
+  Function()? onPressed,
+}) {
   return TextButton(
     style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
-        backgroundColor: darkGrey,
+        backgroundColor: changeColor,
         fixedSize: Size(width, 55)),
     onPressed: onPressed,
     child: Text(text,

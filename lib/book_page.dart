@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:just_audio/just_audio.dart';
 
 class BookPage {
   final String text;
@@ -23,8 +24,14 @@ class BookPage {
     this.illustration = const SizedBox(),
     this.btn2Text = '',
   }) {
-    rootBundle.load('assets/$title.png').then((value) {
-      illustration = Image(image: AssetImage('assets/$title.png'));
+    rootBundle.load('assets/drawings/$title.png').then((value) {
+      illustration = Image(image: AssetImage('assets/drawings/$title.png'));
+    }).catchError((error) {});
+  }
+
+  void tryPlayingMusic(AudioPlayer audioPlayer) {
+    audioPlayer.setAsset('assets/music/$title.mp4').then((value) {
+      audioPlayer.play();
     }).catchError((error) {});
   }
 }

@@ -9,6 +9,7 @@ import 'package:ground_z/game_map.dart';
 import 'package:ground_z/main.dart';
 import 'package:ground_z/navigation.dart';
 import 'package:ground_z/widgets.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var pageList;
@@ -25,12 +26,16 @@ class VisualizePage extends StatefulWidget {
 }
 
 class _VisualizePageState extends State<VisualizePage> with TickerProviderStateMixin {
-  double _value = prefs!.getDouble('fontSizeFactor') ?? 2;
   var scrollController = ScrollController();
   var illustration;
-  bool buttonsVisible = false;
   var fontColor = const Color(0xffF7F4EC);
   var backgroundColor = Colors.black;
+  var currentPage;
+  var lastPage;
+
+  AudioPlayer audioPlayer = AudioPlayer();
+  bool buttonsVisible = false;
+  double _value = prefs!.getDouble('fontSizeFactor') ?? 2;
   bool settingsInvisible = true;
   AnimationController? animationController;
   Animation<double>? animation;
@@ -42,39 +47,17 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
     animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     animation = CurvedAnimation(parent: animationController!, curve: Curves.easeIn);
     animationController!.forward();
+    currentPage = pageList[title];
+    if (title == 'Volver a empezar') {
+      currentPage.tryPlayingMusic(audioPlayer);
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final dimension = MediaQuery.of(context).size;
-    var currentPage;
-
-    if (pageList[title] == null && title.length > 3) {
-      title = title.substring(0, title.length - 3);
-    }
-    if (pageList[title] == null) {
-      currentPage = BookPage(
-        text: 'Hmm... Parece que esta página está por implementar, será mejor salir de aquí.',
-        title: 'Null',
-        btn1Text: 'Volver a empezar',
-        btn2Text: '',
-        illustration: SvgPicture.asset(
-          'assets/caution.svg',
-          height: dimension.height * 0.64,
-        ),
-      );
-    } else {
-      currentPage = pageList[title]!;
-    }
-    bool whiteBackground = prefs!.getBool('whiteBackground') ?? false;
-    if (whiteBackground) {
-      backgroundColor = const Color(0xffF7F4EC);
-      fontColor = Colors.black;
-    } else {
-      backgroundColor = Colors.black;
-      fontColor = const Color(0xffF7F4EC);
-    }
+    bool whiteBackground = controlColor();
 
     return Scaffold(
         appBar: AppBar(
@@ -99,9 +82,9 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
                         SizedBox(width: dimension.width * 0.09),
                         InkWell(
                           child: backgroundColor == Colors.black
-                              ? SvgPicture.asset('assets/map_white.svg',
+                              ? SvgPicture.asset('assets/icons/map_white.svg',
                                   height: 5 * (dimension.height * 0.01))
-                              : SvgPicture.asset('assets/map.svg',
+                              : SvgPicture.asset('assets/icons/map.svg',
                                   height: 5 * (dimension.height * 0.01)),
                           onTap: () {
                             AppNavigator.to(
@@ -138,9 +121,9 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
                       ),
                       InkWell(
                         child: backgroundColor == Colors.black
-                            ? SvgPicture.asset('assets/light_on.svg',
+                            ? SvgPicture.asset('assets/icons/light_on.svg',
                                 height: 4.5 * (dimension.height * 0.01))
-                            : SvgPicture.asset('assets/light_off.svg',
+                            : SvgPicture.asset('assets/icons/light_off.svg',
                                 height: 4.5 * (dimension.height * 0.01)),
                         onTap: () {
                           setState(() {
@@ -161,9 +144,9 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
                 ),
                 InkWell(
                   child: backgroundColor == Colors.black
-                      ? SvgPicture.asset('assets/settings_white.svg',
+                      ? SvgPicture.asset('assets/icons/settings_white.svg',
                           height: 5 * (dimension.height * 0.01))
-                      : SvgPicture.asset('assets/settings.svg',
+                      : SvgPicture.asset('assets/icons/settings.svg',
                           height: 5 * (dimension.height * 0.01)),
                   onTap: () {
                     setState(() {
@@ -227,7 +210,8 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
                                   changeColor: backgroundColor == const Color(0xffF7F4EC)
                                       ? Colors.black
                                       : darkGrey,
-                                  onPressed: () => onChangePage(currentPage.btn1Text, currentPage)),
+                                  onPressed: () =>
+                                      onChangePage(currentPage.btn1Text, currentPage, dimension)),
                               SizedBox(height: dimension.height * 0.018),
                               currentPage.btn2Text == ''
                                   ? const SizedBox()
@@ -239,7 +223,7 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
                                           ? Colors.black
                                           : darkGrey,
                                       onPressed: () {
-                                        onChangePage(currentPage.btn2Text, currentPage);
+                                        onChangePage(currentPage.btn2Text, currentPage, dimension);
                                       }),
                               SizedBox(height: dimension.height * 0.018)
                             ],
@@ -255,19 +239,64 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
         ));
   }
 
-  void onChangePage(String btnTxt, BookPage currentPage) {
+  bool controlColor() {
+    bool whiteBackground = prefs!.getBool('whiteBackground') ?? false;
+
+    if (whiteBackground) {
+      backgroundColor = const Color(0xffF7F4EC);
+      fontColor = Colors.black;
+    } else {
+      backgroundColor = Colors.black;
+      fontColor = const Color(0xffF7F4EC);
+    }
+    return whiteBackground;
+  }
+
+  void controlPages(Size dimension) {
+    if (title == 'Volver atrás') {
+      title = lastPage.title;
+    }
+
+    if (pageList[title] == null && title.length > 3) {
+      title = title.substring(0, title.length - 3);
+    }
+    if (pageList[title] == null) {
+      lastPage = currentPage;
+      currentPage = BookPage(
+          text: 'Hmm... Parece que esta página está por implementar, será mejor salir de aquí.',
+          title: 'Null',
+          btn1Text: 'Volver atrás',
+          btn2Text: '',
+          illustration: Transform.scale(
+            scale: 0.8,
+            child: SvgPicture.asset(
+              'assets/icons/caution.svg',
+              height: dimension.height * 0.68,
+            ),
+          ));
+    } else {
+      currentPage = pageList[title]!;
+    }
+  }
+
+  void onChangePage(String btnTxt, BookPage currentPage, Size dimension) {
     if (btnTxt.contains('Volver a empezar')) {
       if (prefs!.getBool('skipIntroduction') == null) {
         prefs!.setBool('skipIntroduction', true);
-        btnTxt = 'Continuar....';
-      } else {
-        btnTxt = 'Continuar....';
       }
+      btnTxt = 'Continuar....';
     }
     SharedPreferences.getInstance().then((value) => value.setString('currentPage', btnTxt));
     setState(() {
       title = btnTxt;
     });
+    controlPages(dimension);
+    if (!title.contains('Continuar')) {
+      audioPlayer.stop();
+    }
+    if (pageList[title] != null) {
+      pageList[title].tryPlayingMusic(audioPlayer);
+    }
     scrollController.jumpTo(0);
     animationController!.reset();
     animationController!.forward();

@@ -25,7 +25,7 @@ class GroundZ extends StatelessWidget {
         theme: ThemeData(
           textTheme: Theme.of(context)
               .textTheme
-              .apply(fontFamily: 'Cuomotype-Regular', fontSizeFactor: fontSizeFactor),
+              .apply(fontFamily: 'JD Irregutype', fontSizeFactor: fontSizeFactor),
         ),
         debugShowCheckedModeBanner: false,
         home: VisualizePage(
@@ -40,7 +40,7 @@ class GroundZ extends StatelessWidget {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
-  fontSizeFactor = prefs!.getDouble('fontSizeFactor') ?? 1.5;
+  fontSizeFactor = prefs!.getDouble('fontSizeFactor') ?? 2.0;
   await readProcessBook();
   runApp(const GroundZ());
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

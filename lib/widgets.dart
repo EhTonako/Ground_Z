@@ -17,8 +17,8 @@ TextButton customButton({
     onPressed: onPressed,
     child: Text(text,
         style: TextStyle(
-          height: text.length > 28 ? height * 1.2 : height,
-          fontSize: text.length > 28 ? 14 : 18,
+          height: text.length > 28 ? height * 1.4 : height,
+          fontSize: text.length > 28 ? 20 : 30,
           color: Colors.white,
           fontWeight: FontWeight.bold,
         )),

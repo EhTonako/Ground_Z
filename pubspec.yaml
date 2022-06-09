@@ -31,3 +31,6 @@ flutter:
     - family: Cuomotype-Regular
       fonts:
         - asset: assets/cuomotype.ttf
+    - family: JD Irregutype
+      fonts:
+        - asset: assets/JdIrregutype.ttf

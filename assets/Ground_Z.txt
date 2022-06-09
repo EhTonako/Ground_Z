@@ -14,11 +14,11 @@
 
 #“…algunas de las cosas que ví trabajando para Bnefact ya me hacían sospechar de la ética de las grandes compañías, pero nunca hubiera imaginado algo como esto. La censura, la coacción, las contradicciones, todo apunta en una dirección muy siniestra. Por favor, necesito que me escuchen! Hemos encontrado cosas que no terminamos de entender en las muestras del laboratorio. Si lo que imagino es cierto, la ingeniería genética está mucho más avanzada de lo que se nos dejó saber. Los que sobrevivan a las inyecciones ya no serán…”#
 
-#Continuar...|Continuar….#
+#Continuar...|Continuar....#
 
 #“…Hasta ahora China ha sido muy tolerante con los atropellos y excesos de Estados Unidos en el Pacífico, pero el estacionamiento de tropas y la construcción no autorizada de radares en la costa de la provincia china de Taiwan no se podía tolerar. El Ejército de Liberación Popular ha neutralizado la amenaza rápidamente y hacemos saber al ejército de los Estados Unidos que estamos listos para responder con más contundencia. Esto no es una declaración de guerra, pero…”#
 
-#Continuar….|Vas al trabajo|Compras un refugio#
+#Continuar....|Vas al trabajo|Compras un refugio#
 
 #Te despiertas temprano, algo inquieto. El trabajo empieza en dos horas, por lo que tienes tiempo de reflexionar mientras la luz mortecina de la madrugada va apareciendo en la ventana.
 

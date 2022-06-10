@@ -7,6 +7,7 @@ class BookPage {
   final String title;
   final String btn1Text;
   final String btn2Text;
+  late AnimationController animController;
   Widget illustration;
 
   BookPage({
@@ -29,9 +30,12 @@ class BookPage {
     }).catchError((error) {});
   }
 
-  void tryPlayingMusic(AudioPlayer audioPlayer) {
-    audioPlayer.setAsset('assets/music/$title.mp4').then((value) {
+  Future<int> tryPlayingMusic(AudioPlayer audioPlayer) async {
+    int duration = 0;
+    await audioPlayer.setAsset('assets/music/$title.mp4').then((value) {
+      duration = value!.inSeconds;
       audioPlayer.play();
     }).catchError((error) {});
+    return duration;
   }
 }

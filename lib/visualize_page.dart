@@ -34,23 +34,42 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
   var lastPage;
 
   AudioPlayer audioPlayer = AudioPlayer();
-  bool buttonsVisible = false;
+  bool playedOnce = false;
   double _value = prefs!.getDouble('fontSizeFactor') ?? 2;
   bool settingsInvisible = true;
-  AnimationController? animationController;
+  AnimationController? fadeController;
+  AnimationController? musicProgressController;
   Animation<double>? animation;
 
   @override
   void initState() {
     pageList = widget.pageList;
     title = widget.title;
-    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    animation = CurvedAnimation(parent: animationController!, curve: Curves.easeIn);
-    animationController!.forward();
+    fadeController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    animation = CurvedAnimation(parent: fadeController!, curve: Curves.easeIn);
+    fadeController!.forward();
     controlPages(init: true);
-    if (title == 'Volver a empezar') {
+    if (title == 'Volver a empezar' && !playedOnce) {
+      playedOnce = true;
       currentPage.tryPlayingMusic(audioPlayer);
     }
+    scrollController.addListener(() async {
+      if (!playedOnce &&
+          pageList[title] != null &&
+          scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+        playedOnce = true;
+        int duration = await pageList[title].tryPlayingMusic(audioPlayer);
+        if (duration > 0) {
+          musicProgressController = AnimationController(
+            vsync: this,
+            duration: Duration(seconds: duration - 14),
+          )..addListener(() {
+              setState(() {});
+            });
+          musicProgressController!.forward();
+        }
+      }
+    });
     super.initState();
   }
 
@@ -200,6 +219,17 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
                             padding: EdgeInsets.symmetric(horizontal: dimension.width * 0.04),
                             child: currentPage.illustration,
                           ),
+                          musicProgressController == null
+                              ? const SizedBox()
+                              : Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: dimension.width * 0.04),
+                                  child: LinearProgressIndicator(
+                                    minHeight: dimension.height * 0.03,
+                                    backgroundColor: Colors.grey,
+                                    valueColor: const AlwaysStoppedAnimation<Color>(brownOxide),
+                                    value: musicProgressController!.value,
+                                  ),
+                                ),
                           Column(
                             children: [
                               SizedBox(height: dimension.height * 0.03),
@@ -283,6 +313,8 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
   }
 
   void onChangePage(String btnTxt, BookPage currentPage, Size dimension) {
+    playedOnce = false;
+    musicProgressController = null;
     if (btnTxt.contains('Volver a empezar')) {
       if (prefs!.getBool('skipIntroduction') == null) {
         prefs!.setBool('skipIntroduction', true);
@@ -297,11 +329,8 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
     if (!title.contains('Continuar')) {
       audioPlayer.stop();
     }
-    if (pageList[title] != null) {
-      pageList[title].tryPlayingMusic(audioPlayer);
-    }
     scrollController.jumpTo(0);
-    animationController!.reset();
-    animationController!.forward();
+    fadeController!.reset();
+    fadeController!.forward();
   }
 }

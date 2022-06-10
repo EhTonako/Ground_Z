@@ -4,7 +4,7 @@
 
 #Continuar|Continuar.#
 
-#“¿Te precupan estos tiempos inciertos? ¿Te mantienes despierto, atormentado por lóbregos pensamientos y palpitaciones? ¿Te preguntas si algún lunático va a presionar el botón y ponerle final a todo?¿Te has imaginado a tí y a tus seres queridos en los momentos antes de ser reducidos a polvo, sollozando y gritando en medio de las explosiones, o convertidos en esclavos del Nuevo Orden Mundial? ¿Crees que no puedes hacer nada para evitarlo? No sigas sufriendo, Atomic Shield Technologies ha invertido décadas de forma previsora diseñanando lo que tú y tu familia necesitáis para…”#
+#“¿Te precupan estos tiempos inciertos? ¿Te mantienes despierto, atormentado por lóbregos pensamientos y palpitaciones? ¿Te preguntas si algún lunático va a presionar el botón y ponerle final a todo?¿Te has imaginado a tí y a tus seres queridos en los momentos antes de ser reducidos a polvo, sollozando y gritando en medio de las explosiones, o convertidos en esclavos del Nuevo Orden Mundial? ¿Crees que no puedes hacer nada para evitarlo? No sigas sufriendo, Atomic Shield Technologies ha invertido décadas de forma previsora diseñando lo que tú y tu familia necesitáis para…”#
 
 #Continuar.|Continuar..#
 
@@ -14,11 +14,11 @@
 
 #“…algunas de las cosas que ví trabajando para Bnefact ya me hacían sospechar de la ética de las grandes compañías, pero nunca hubiera imaginado algo como esto. La censura, la coacción, las contradicciones, todo apunta en una dirección muy siniestra. Por favor, necesito que me escuchen! Hemos encontrado cosas que no terminamos de entender en las muestras del laboratorio. Si lo que imagino es cierto, la ingeniería genética está mucho más avanzada de lo que se nos dejó saber. Los que sobrevivan a las inyecciones ya no serán…”#
 
-#Continuar...|Continuar....#
+#Continuar...|Empezar#
 
 #“…Hasta ahora China ha sido muy tolerante con los atropellos y excesos de Estados Unidos en el Pacífico, pero el estacionamiento de tropas y la construcción no autorizada de radares en la costa de la provincia china de Taiwan no se podía tolerar. El Ejército de Liberación Popular ha neutralizado la amenaza rápidamente y hacemos saber al ejército de los Estados Unidos que estamos listos para responder con más contundencia. Esto no es una declaración de guerra, pero…”#
 
-#Continuar....|Vas al trabajo|Compras un refugio#
+#Empezar|Vas al trabajo|Compras un refugio#
 
 #Te despiertas temprano, algo inquieto. El trabajo empieza en dos horas, por lo que tienes tiempo de reflexionar mientras la luz mortecina de la madrugada va apareciendo en la ventana.
 
@@ -26,7 +26,7 @@ Hace meses que llevas viendo y escuchando noticias alarmantes, ya sea relacionad
 
 Es bastante ridículo, pero te preguntas si lo de los refugios nucleares del anuncio vale la pena y si deberías comprarte uno. Puedes usar en esto los miles de euros que tienes flotando indolentemente en tu cuenta de Binance, fruto de inversiones tempranas en las grandes criptomonedas o en modas absurdas como los Non Fungible Tokens, que tienes que agradecer a los estériles delirios digitales de las masas, que son los de sus amos.
 
-Por supuesto, todo eso valdrá nada o casi nada cuando las cosas se vayan a la mierda. Hasta ahora te costaba pensar en qué usar el dinero: no era suficiente para dejar de trabajar y largarte y no te apetecía nada en particular (más allá del pastón que te dejaste en el pasaporte falso de vacunación). En cierto modo estabas esperando a que pasara algo.
+Por supuesto, todo eso valdrá nada o casi nada cuando las cosas se vayan a la mierda. Hasta ahora te costaba pensar en qué usar el dinero: no era suficiente para dejar de trabajar y largarte y no te apetecía nada en particular. En cierto modo estabas esperando a que pasara algo.
 
 Pero también puede suceder que te compres un refugio, te metas en él y en pocas semanas tengas que salir con el rabo entre las piernas, porque no ha pasado nada y has gastado tus ahorros en una estupidez.#
 
@@ -212,7 +212,7 @@ De repente, todas las puertas metálicas previamente cerradas en la habitación 
 
 Un pequeño panel en la pared se abre para revelar un voluminoso libro, debe ser el manual del propietario. Te estabas preguntando dónde diablos estaba esa cosa, ya que te dijeron que te iban a proporcionar una cuando hablaste con la voz por teléfono.#
 
-#Estás deseando inspeccionar las instalaciones|Empezar#
+#Estás deseando inspeccionar las instalaciones|Volver a empezar#
 
 #“Por ahora no me apetece lidiar con ese tostón. Voy a echar un trago y a echarle un vistazo al ordenador, con tu permiso, Inteligencia Artificial, Alexa o como quiera que te llames”.
 
@@ -681,7 +681,7 @@ Eliza tenía razón cuando dijo que este tipo de cosas volverían a suceder. Sin
 
 Tú decides.#
 
-#Te quedas con ella aquí hasta el final|Empezar#
+#Te quedas con ella aquí hasta el final|Volver a empezar#
 
 #No, Elisa. Me quedaré aquí. Dejé ese mundo hace mucho tiempo y no sabría qué hacer allí, incluso en el improbable caso de que la civilización se haya reconstruido de alguna manera. Esta es mi vida ahora. Aquí abajo, contigo. Lo siento si me pongo un poco irritable a veces, no es mi intención”.
 
@@ -713,7 +713,7 @@ Con esas palabras todavía resonando en tus oídos, empiezas a tener sueño y ci
 
 ¿Pero quizás...?#
 
-#Sales a la superficie con Eliza|Empezar#
+#Sales a la superficie con Eliza|Volver a empezar#
 
 #“Bueno, supongo que tienes razón, como siempre, Eliza, probablemente necesite un cambio de escenario, ¡pero tú te vienes conmigo! ¡Eso está fuera de toda discusión!”
 
@@ -805,7 +805,7 @@ Te subes a la moto de Jake y la pones en marcha. Eres un poco cauto al principio
 
 No sabes si tendrás éxito en tu "misión", pero tienes que intentarlo y, sin duda, ahora tienes algo para mantenerte ocupado en este nuevo mundo. Es extraño cómo incluso en la muerte, Eliza siga haciendo todo lo posible para darle sentido a tu vida.#
 
-#Pasas de la gente del chat|Empezar#
+#Pasas de la gente del chat|Volver a empezar#
 
 #Ves pocas razones para interactuar con cualquiera de ellos. Parecen bastante superficiales y aburridos. Decides seguir por tu cuenta, como siempre lo has hecho. El problema es que hay algo distinto a cuando vivías solo, ahora tienes una "persona" que no puedes evitar y ese es el refugio en sí. 
 Al ver que no vas a interactuar con otras personas, la IA decide encargarse de darte conversación continuamente, y la verdad es que comienza a a cargarte considerablemente. Pasan unos meses y un día pierdes la paciencia. 
@@ -871,9 +871,7 @@ No pasa mucho tiempo antes de que te alcancen en la barriga y tengas que tumbart
 
 #No. Es precipitado hacer algo así ahora mismo, y de todos modos lo del anuncio de Atomic Sound o como se llamara tenía toda la pinta de ser una especie de secta de fanáticos religiosos. No eres ateo pero tampoco te gustan mucho las religiones,  a decir verdad eres bastante raro. No encajarías con gente así de todas formas.
 
-Es mejor ir al curro a ver qué se cuece en la ciudad, y si no pasa nada puedes seguir como hasta ahora. Es difícil imaginar que la gente sea tan estúpida de no intentar evitar la violencia a escala mundial.
-                                          
-                                       ......................
+Es mejor ir al curro a ver qué se cuece en la ciudad, y si no pasa nada puedes seguir como hasta ahora. Es difícil imaginar que la gente sea tan estúpida de no intentar evitar la violencia a escala mundial. 
 
 Estás enfrascado en el ordenador cuando escuchas una voz nerviosa y susurrante encima del escritorio. Es el tío de Sistemas, alguna vez habéis hecho cosas juntos, os lleváis bien.
 
@@ -881,15 +879,11 @@ Estás enfrascado en el ordenador cuando escuchas una voz nerviosa y susurrante 
 
 Estás a tiempo de vacunarte, porque tardarán unas semanas en implementarlo a nivel nacional. Pero no tienes tanto tiempo, si te niegas estoy obligado a delatarte. Tienes hasta mañana para pensártelo.
 
-                                       .......................
-
 Al día siguiente…#
 
 #Te dejas inocular|Sigues yendo al curro|Empiezas a quedarte en casa#
 
-#Sabes de sobra lo que te va a pasar si te niegas, vas a perder el trabajo, te van a meter en la cárcel y allí te van a vacunar a la fuerza de todos modos. Después de tantas penurias para evitarlo vas a tener que ceder. 
-
-Las cosas como son, casi todas las personas que conoces que sabes de buena tinta recibieron la inyección están perfectamente. Tú te resistías por una leve pero insistente sospecha, pero ahora ya no tienes opción, y visto lo visto seguramente sea inofensiva – el que proteja contra la enfermedad cuesta más creerlo.
+#Tampoco es para tanto. No lo ves necesario por tu edad y estado de salud pero quieres conservar el trabajo. Las cosas como son, casi todas las personas que conoces que sabes de buena tinta recibieron la inyección están perfectamente. Tú te resistías por una leve pero insistente sospecha, pero ahora ya no tienes opción, y visto lo visto seguramente sea inofensiva.
 
 Esa misma mañana entras en uno de los pabellones itinerantes que pululan por la ciudad y recibes la primera dosis, y a la semana ya tienes la pauta completa. Pasas una noche horrible con la segunda dosis, con escalofríos y fiebre, pero te recuperas pronto.
 
@@ -933,23 +927,21 @@ Greg se lleva la manos a la cabeza y la sacude con impotencia. A continuación, 
 
 Greg ve que todavía estás un poco aprensivo con la idea.
 
-"Bien, haz lo que te dé la gana. A mí me da igual. Voy a volver a la fiesta, no voy a quedarme aquí perdiendo el tiempo hablando contigo cuando podría estar follando con Kate. Sólo espero poder llegar a ella antes que Agustín esta vez".
+"Bien, haz lo que te dé la gana. A mí me da igual. Voy a volver a la fiesta, no voy a quedarme aquí perdiendo el tiempo hablando contigo cuando podría estar divierténdome con Kate. Sólo espero poder llegar a ella antes que Agustín esta vez".
 
 Greg te deja reflexionando sobre la situación.#
 
 #Te entregas a las bacanales de la oficina|Volver a empezar#
 
-#Greg tiene razón. ¡Este no es el momento de ser sensato e intentar comportarse! ¡El mundo va a terminar cualquier día y aunque sea lo ultimo que hagas, vas a VIVIR la vida por primera vez! Inmediatamente te levantas y te diriges al área de la oficina principal; parece que llegas justo a tiempo para otra orgía. Greg se está preparando para intimar con Kate tal y como dijo... Subitamente, te acercas con un par de zancadas y le golpeas con furia la parte de atrás de la cabeza con una pesada grapadora hasta que lo dejas ensangrentado e inconsciente... o muerto. No estás seguro y tampoco no te importa.
+#Greg tiene razón. ¡Este no es el momento de ser sensato e intentar comportarse! ¡El mundo va a terminar cualquier día y aunque sea lo ultimo que hagas, vas a VIVIR la vida por primera vez! Inmediatamente te levantas y te diriges al área de la oficina principal; parece que llegas justo a tiempo para otra orgía. Greg se está preparando para intimar con Kate tal y como dijo... Subitamente, te acercas con un par de zancadas y le golpeas con fuerza la parte de atrás de la cabeza con una pesada grapadora de manera que queda yerto en el suelo, ensangrentado e inconsciente... o muerto. No estás seguro y tampoco te importa.
 
 "Tenías razón... tio". Dices respirando con dificultad.
 
-Tus acciones hacen que la gente se detenga en estado de shock y te observen alarmados, luego agarras a Kate, que está completamente desnuda y preocupada por lo que vas a hacer a continuación.
+Tus acciones hacen que la gente se detenga en estado de shock y te observen alarmados, luego coges del brazo a Kate y la acercas a tí. Está completamente desnuda y preocupada por lo que vas a hacer a continuación. Pero lo único que haces es darle un beso apasionado y furioso que responde a los pocos segundos con intensidad.
 
-“Ven aquí, zorra, ¿te gusta ser una zorra de mierda? ¡Entonces te trataré como tal!” pronuncias con un tono de voz ronco y desquiciado.
+Después de contemplar este melodrama lamentable la gente de alrededor vuelve a sus asuntos, comprendiendo que seguramente no vayas a atacar a nadie más por ahora. A partir de ese momento, Kate se junta mucho más contigo (para consternación de Agustin) y ya te olvidas de Marina, de hecho, ni siquiera la ves en estos dias de fiesta demencial antes de la aniquilacion. Al día siguiente escuchas que Greg ha salido del edificio corriendo tran pronto como se despertó, apretándose la nuca con unas servilletas. 
 
-Procedes a inclinar a Kate sobre la fotocopiadora, agarrarla del pelo y follarla como un animal llamándola todos los nombres despectivos del diccionario. Lo raro es que le empieza a gustar. Incluso comienza a burlarse de ti diciendo que para tanto revuelo en realidad no puedes joder. Esto, por supuesto, solo hace que te enardezcas mas. Ambos realmente os meteis en el papel y os perdeis en el momento, por asi decirlo.
-
-Después de contemplar este acto espontáneo de sadomasoquismo y posible homicidio todos vuelven a hacer lo que estaban haciendo, comprendiendo que seguramente no vayas a atacar a nadie mas por ahora. A partir de ese momento, Kate se junta mucho más contigo (para consternación de Agustin) y ya te olvidas de Marina, de hecho, ni siquiera la ves en estos dias de fiesta demencial antes de la aniquilacion. Te entregas a los placeres carnales como nunca antes.
+Te entregas a los placeres carnales como nunca antes.
 
 Hasta que un día…
 
@@ -981,7 +973,7 @@ A veces enciendes la televisión para ver en qué punto de descomposición se en
 
 Una tarde enciendes la televisión y te encuentras con el hormigueante amasijo de píxels de la estática gris. Oyes un estruendo lejano que se va acercando. Ha llegado el momento.#
 
-#Sales a dar una vuelta|Empezar#
+#Sales a dar una vuelta|Volver a empezar#
 
 #Sales tranquilamente de tu casa y te subes en el coche. Te dirijes hacia la ciudad, como cualquier otro lunes. La autovía está completamente vacía y silenciosa, exceptuando los coches destrozados en colisiones durante el pánico de la huida que tienes que sortear.
 
@@ -1416,9 +1408,7 @@ Por unos segundos te sientes aislado de todo, dejas de vigilar el edificio, baja
 
 Al subirte al coche la extraña sensación que originó esta disposición perceptiva te embarga. Has estado muy cerca de ceder a tus peores impulsos y sientes el vértigo de haberte asomado al abismo. No sabes por qué, pero te viene a la mente la noche en la que dejaste de creer en Dios, cuando eras un niño precoz y temerario que se vanagloriaba de destriparle secretos a los compañeros de clase. Te pasaste horas llorando a lágrima viva.
 
-Parece que estás teniendo un brote psicótico, o quizás una epifanía. Sea lo que sea, es mejor que tu estado mental anterior, así que no te preocupa. Sales del aparcamiento con una sensación de satisfacción moral y te diriges a tu casa.
-
-                                                 .............................                                                 
+Parece que estás teniendo un brote psicótico, o quizás una epifanía. Sea lo que sea, es mejor que tu estado mental anterior, así que no te preocupa. Sales del aparcamiento con una sensación de satisfacción moral y te diriges a tu casa.                                           
 
 A mitad de camino algo llama tu atención. Una camioneta, que al venir no estaba, se encuentra empotrada en uno de los gruesos pinos que jalonan la carretera. Un humo perezoso sale del arrugado capó, y se escuchan ladridos desde dentro.
 
@@ -1435,8 +1425,6 @@ Vas a responder que no es el momento de beber si no el de llamar a urgencias cua
 - Mira, la estoy palmando y tú has venido a ayudarme, así que yo te voy a ayudar a tí. Me dirigía con mi perro a un refugio nuclear cuya estancia compré por capricho el año pasado. Me dijeron que el perro no podía entrar pero yo lo llevaba de todos modos. Evidentemente, ahora nunca llegaré, pero si me prometes que cuidarás de Bruno yo te doy la tarjeta que me dieron. ¿Qué dices?
 
 Por supuesto, aceptas. Realmente te ha tocado la lotería. Este tío estaba forrado, y en el refugio vas a tener comida, bebida, seguridad y comfort, mientras que en el exterior es mucho más probable que encuentres la muerte. Lo del perro es un engorro, pero no quieres romper tu palabra. Henry, que es como se llama el hombre, en pocos minutos cierra los ojos definitivamente y deja de respirar. Una vez sacas al perro del coche es una odisea el separarlo del cuerpo inerte de dueño. Te alejas de la escena con el sonido plañidero de Bruno llenándote los oídos durante muchos minutos.
-
-				   		.............................
 
 Llegas a la zona que te indicó Henry después de perderte un par de veces. Por el camino las casas y campos labrados se van haciendo menos numerosos. Parece ser una especie de reserva natural. Pronto puedes observar que el camino termina en una puerta de metal, que se conecta con una alta valla que parece extenderse durante kilómetros. 
 
@@ -1488,8 +1476,6 @@ Entonces se escucha la voz indignada de una mujer joven, que aparece apartando a
 
 Elisa se planta delante de tí y aparta al hombre, a Manuel, con un ademán firme. Manuel la contempla sorprendido, confuso, quizás algo avergonzado. Lo ves mirar hacia atrás, hacia el grupo que os observa. Notas rostros incómodos entre ellos, seguramente nadie quería llegar tan lejos. Finalmente se marcha con énergicas zancadas, en cierto modo derrotado.
 
-					                 ................
-
 Han pasado unas semanas, y es casi como si fueras una persona completamente distinta. Has empezado a leer la Biblia, cosa que haces con el grupo de oración de Elisa o bien en la soledad de tu cuarto. Ya no abrigas tantas dudas respecto al origen de este cambio, la mayor parte del tiempo ya no te satisfacen las explicaciones mundanas sobre los traumas, la psicosis o el estrés, si no que te das cuenta de que has sido tocado por la Gracia.
 
 La vida en el refugio es muy predecible, pero eso no te parece en absoluto un inconveniente. Descubres que el sitio consiste en una red de túneles bastante grande, con las paredes de hormigón armado, que llevan a estancias forradas de metal pensadas como dormitorios, un salón comedor espacioso para el grupo, una armería, una enfermería... Hay incluso un taller de electrónica y una moderna sala para la agricultura hidropónica. Es evidente que Atom Solutions era la opción “premium” en el mercado preparacionista.
@@ -1501,8 +1487,6 @@ Al final era verdad que Bruno iba a ser de utilidad con los niños, hay una vein
 Sabes que Manuel te odia, pero él tampoco es precisamente popular, así que se limita a lanzarte pullas y mirarte con el ceño fruncido. Por lo visto antes de que te atacara la gente ya empezaba estar harta de sus maneras bruscas y estilo totalitario. Es el padre de Elisa, lamentablemente.
 
 Pasan unos meses…
-
-				                            .....................
 
 Se ha convocado una reunión en la Sala de Reuniones. La comunidad ha aprendido a apreciar tu entereza, capacidad de decisión y la fortaleza de tu fe y por eso estás sentado en primera fila, con Elisa a tu lado (y Manuel al suyo). Jonas, que solía ser ingeniero electrónico, toma la palabra:
 
@@ -1540,7 +1524,7 @@ Está todo completamente a oscuras, lo cual es una pésima señal. Apagáis las 
 
 Escuchas a Bruno gimotear, lo cual puede indicar que percibe la gravedad del momento o bien que no estáis solos los tres aquí abajo.#
 
-#Asesinas a Manuel|Empezar#
+#Asesinas a Manuel|Volver a empezar#
 
 #Obedeciendo a un impulso largamente reprimido, por fin ves la oportunidad de vengarte de Manuel, que estuvo a punto de matarte. Es cierto que las interpretaciones modernas de la Santa Biblia, blandas y corrompidas, se apoyan en los mandamientos para execrar el homicidio, pero en numerosos pasajes de Reyes, Deuteronomio, Números y otros se habla y se actúa conforme a un Dios de los Ejércitos, no un Dios crucificado y patético.
 
@@ -1578,7 +1562,7 @@ Manuel dice que conoce una manera de salir de los dormitorios. Existen unos cond
 
 Vas el primero y das un tremendo respingo (que incluye un doloroso cabezazo con el techo) cuando tu mano tropieza con el contorno de un cuerpo. No hay mucho espacio para maniobrar, pero la linterna muestra una grotesca caricatura de persona, con la ropa hecha jirones y la piel hinchada y amarillenta. Sientes un fuerte impulso de salir lo más rápido posible del compartimento. Puede que algún tipo de infección matara a esta persona.#
 
-#Continuáis por el túnel|Empezar#
+#Continuáis por el túnel|Volver a empezar#
 
 #Es mejor enfrentarse con engendros muertos que con el alegre grupo esperando fuera del dormitorio. Haciendo de tripas corazón, Manuel y tú gateáis sobre los cuerpos. Sólo puedes imaginarte el inaguantable hedor que despiden, porque afortunadamente las máscaras de gas suprimen esa parte de la experiencia.
 
@@ -1623,7 +1607,7 @@ Pasan algunos días, y ya puedes levantarte de la cama. Compruebas que eres algo
 
 Eliza te plantea la necesidad de resolver esta situación. Para decidir cómo presentarte ante el grupo, acudes a la sabiduría de las Sagradas Escrituras. Al abrir el libro y al posar el dedo sobre una página, te encuentras con...#
 
-#Juan 8:32|Empezar#
+#Juan 8:32|Volver a empezar#
 
 #¡La verdad! Así es, ¿cómo podría Dios querer que mientas a la comunidad? ¿No es Satán el Príncipe de la Mentira? Sólo la verdad es un alimento meritorio para tus futuros seguidores... Sí, ya ves con claridad cuál es el puesto que el Altísimo te ha reservado entre ellos, no, sobre ellos...
 
@@ -1763,7 +1747,7 @@ Eliza es tu mano derecha en cuanto a decisiones, tiene el rango de Pontífice. S
 
 Lo que sí sabes es que los enemigos de tu comunidad no descansan, y seguramente no anteponen la salud de sus relaciones sentimentales a las maquinaciones para mataros y apropiarse de lo que habéis conseguido.#
 
-#La Alianza requiere toda tu atención|Empezar#
+#La Alianza requiere toda tu atención|Volver a empezar#
 
 #Te despiertas temprano, y en pocos segundos te sobreviene una ráfaga de tensión por todo el cuerpo al recordar lo que debes hacer hoy. Te levantas de la cama y te diriges al cuarto de baño. Agradeces mentalmente la ventaja que supone tener este espacio propio en este momento, sería casi insoportable seguir durmiendo con él, pasar este trance con Iván (si todavía merece un nombre humano) acostado y suspirando tranquila y regularmente a tus espaldas. 
 

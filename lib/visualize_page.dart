@@ -47,7 +47,7 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
     animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     animation = CurvedAnimation(parent: animationController!, curve: Curves.easeIn);
     animationController!.forward();
-    currentPage = pageList[title];
+    controlPages(init: true);
     if (title == 'Volver a empezar') {
       currentPage.tryPlayingMusic(audioPlayer);
     }
@@ -252,15 +252,18 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
     return whiteBackground;
   }
 
-  void controlPages(Size dimension) {
+  void controlPages({bool init = false}) {
     if (title == 'Volver atrás') {
-      title = lastPage.title;
+      title = prefs!.getString('lastPage');
     }
 
     if (pageList[title] == null && title.length > 3) {
       title = title.substring(0, title.length - 3);
     }
     if (pageList[title] == null) {
+      if (!init) {
+        prefs!.setString('lastPage', currentPage.title);
+      }
       lastPage = currentPage;
       currentPage = BookPage(
           text: 'Hmm... Parece que esta página está por implementar, será mejor salir de aquí.',
@@ -271,7 +274,7 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
             scale: 0.8,
             child: SvgPicture.asset(
               'assets/icons/caution.svg',
-              height: dimension.height * 0.68,
+              height: 500,
             ),
           ));
     } else {
@@ -284,13 +287,13 @@ class _VisualizePageState extends State<VisualizePage> with TickerProviderStateM
       if (prefs!.getBool('skipIntroduction') == null) {
         prefs!.setBool('skipIntroduction', true);
       }
-      btnTxt = 'Continuar....';
+      btnTxt = 'Empezar   ';
     }
     SharedPreferences.getInstance().then((value) => value.setString('currentPage', btnTxt));
     setState(() {
       title = btnTxt;
     });
-    controlPages(dimension);
+    controlPages();
     if (!title.contains('Continuar')) {
       audioPlayer.stop();
     }

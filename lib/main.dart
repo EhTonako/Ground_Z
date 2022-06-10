@@ -48,7 +48,6 @@ void main() async {
 
 Future<void> readProcessBook() async {
   var text = await rootBundle.loadString('assets/text/Ground_Z.txt');
-  text = text.replaceAll('Empezar', 'Volver a empezar');
   text = text.replaceAll('8:32', '8_32');
   var book = text.split('\n#');
   book = List<String>.generate(book.length, (i) => book[i].replaceAll('#', ''));
